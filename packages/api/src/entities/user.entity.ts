@@ -10,7 +10,7 @@ export default class UserEntity {
   id!: ObjectID;
 
   @Column(_type => UserInfoEntity)
-  userInfo!: UserInfo;
+  userInfo!: UserInfoEntity;
 
   @Column(_type => WorkoutEntity)
   workouts!: WorkoutEntity[];
