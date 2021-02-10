@@ -1,1 +1,1 @@
-export default class WorkoutRepository {}
+export default interface WorkoutRepository {}

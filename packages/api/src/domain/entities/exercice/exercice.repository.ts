@@ -1,1 +1,1 @@
-export default class ExerciceRepository {}
+export default interface ExerciceRepository {}

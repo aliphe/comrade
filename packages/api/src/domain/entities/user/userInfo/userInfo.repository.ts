@@ -1,1 +1,1 @@
-export default class UserInfoRepository {}
+export default interface UserInfoRepository {}

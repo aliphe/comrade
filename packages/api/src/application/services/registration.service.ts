@@ -1,6 +1,7 @@
-import { injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { hash } from '../helpers/hash';
 import UserMongoRepository from '../../interfaces/repositories/mongo/userRepository';
+import UserRepository from '../../domain/entities/user/user.repository';
 
 export interface UserCreateInput {
   email: string;
@@ -13,11 +14,11 @@ export interface UserInfoDto {
 
 @injectable()
 export default class UserRegistrationService {
-  constructor(private readonly userRepository: UserMongoRepository) {}
+  constructor(@inject("UserRepository") private readonly userRepository: UserRepository) {}
 
   async register(input: UserCreateInput): Promise<UserInfoDto> {
     console.log('REGISTER', input);
-    const existingUser = await this.userRepository.findOne({
+    const existingUser = this.userRepository.findOne({
       where: {
         'userInfo.email': { $eq: input.email },
       },
@@ -28,19 +29,6 @@ export default class UserRegistrationService {
       throw new Error('User already exists');
     }
 
-    const createdUser = this.userRepository.create({
-      userInfo: {
-        email: input.email,
-        password: hash(input.password),
-      },
-    });
-
-    console.log('RegistrationService::register', { createdUser });
-
-    await this.userRepository.save(createdUser);
-
-    return {
-      email: createdUser.userInfo.email,
-    };
+    throw new Error('Not implemented yet.');
   }
 }
