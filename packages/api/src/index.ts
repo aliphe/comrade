@@ -1,8 +1,10 @@
 import 'reflect-metadata';
+
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
-import initApi from './api';
-import initContainer from './container';
+
+import initApi from './interfaces/api';
+import initContainer from './application/container';
 
 dotenv.config();
 
