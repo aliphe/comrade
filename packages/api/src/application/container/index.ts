@@ -1,10 +1,9 @@
+import { Db } from 'mongodb';
 import { container } from 'tsyringe';
-import { Connection } from 'typeorm';
-import UserRepository from '../../domain/entities/user/user.repository';
-import UserMongoRepository from '../../interfaces/repositories/mongo/userRepository';
+import UserMongoRepository from '../../interfaces/repositories/mongo/user';
 
-export default function initContainer() {
+export default function initContainer(db: Db) {
   container.register('UserRepository', {
-    useValue: new UserMongoRepository(),
+    useValue: new UserMongoRepository(db),
   });
 }

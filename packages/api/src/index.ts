@@ -4,11 +4,18 @@ import dotenv from 'dotenv';
 
 import initApi from './interfaces/api';
 import initContainer from './application/container';
+import config from './config';
+import { MongoClient } from 'mongodb';
 
 dotenv.config();
 
-function start() {
-  initContainer();
+async function start() {
+  const client = new MongoClient(config.mongo.url);
+
+  await client.connect();
+  const db = client.db(config.mongo.databaseName);
+
+  initContainer(db);
 
   const app = initApi();
 

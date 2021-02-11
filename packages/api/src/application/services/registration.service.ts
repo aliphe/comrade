@@ -1,6 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-import { hash } from '../helpers/hash';
-import UserMongoRepository from '../../interfaces/repositories/mongo/userRepository';
 import UserRepository from '../../domain/entities/user/user.repository';
 
 export interface UserCreateInput {
