@@ -8,9 +8,7 @@ import initContainer from './application/container';
 import config from './config';
 import { MongoClient } from 'mongodb';
 
-
 async function start() {
-  console.log(config)
   const client = new MongoClient(config.mongo.url);
 
   await client.connect();
