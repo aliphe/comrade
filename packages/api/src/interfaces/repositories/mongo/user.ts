@@ -1,16 +1,44 @@
 import { Collection, Db } from 'mongodb';
+import { MongoCollection, MongoEntity } from '.';
 
 import UserEntity from '../../../domain/entities/user';
-import UserRepository from '../../../domain/entities/user/user.repository';
+import UserRepository, { UserInput } from '../../../domain/entities/user/user.repository';
 
 export default class UserMongoRepository implements UserRepository {
-  private readonly collection: Collection<UserEntity>;
+  private readonly collection: MongoCollection<UserEntity>;
 
   constructor(db: Db) {
     this.collection = db.collection('users');
   }
 
-  async findOneByEmail(email: string): Promise<UserEntity | undefined> {
-    return undefined;
+  async create(user: UserInput): Promise<string> {
+    const query = await this.collection.insertOne({
+      exercices: user.exercices,
+      syncedWorkouts: user.syncedWorkouts,
+      userInfo: user.userInfo,
+      workoutSessions: user.workoutSessions,
+      workouts: user.workouts,
+    })
+    return query.insertedId.toHexString();
   }
+
+  async findOneByEmail(email: string): Promise<UserEntity | null> {
+    const user = await this.collection.findOne({
+      'userInfo.email': email,
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return UserMongoRepository.formatUser(user);
+  }
+
+  static formatUser(mongoUser: MongoEntity<UserEntity>): UserEntity {
+    return {
+      ...mongoUser,
+     id: mongoUser._id.toHexString(),
+    }
+  }
+  
 }

@@ -1,15 +1,16 @@
 import 'reflect-metadata';
 
 import dotenv from 'dotenv';
+dotenv.config();
 
 import initApi from './interfaces/api';
 import initContainer from './application/container';
 import config from './config';
 import { MongoClient } from 'mongodb';
 
-dotenv.config();
 
 async function start() {
+  console.log(config)
   const client = new MongoClient(config.mongo.url);
 
   await client.connect();
