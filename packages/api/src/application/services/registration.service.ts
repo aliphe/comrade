@@ -1,5 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import UserRepository, { UserInput } from '../../domain/entities/user/user.repository';
+import UserRepository, {
+  UserInput,
+} from '../../domain/entities/user/user.repository';
 import { hash } from '../helpers/hash';
 
 export interface UserCreateInput {
@@ -9,7 +11,9 @@ export interface UserCreateInput {
 
 @injectable()
 export default class UserRegistrationService {
-  constructor(@inject("UserRepository") private readonly userRepository: UserRepository) {}
+  constructor(
+    @inject('UserRepository') private readonly userRepository: UserRepository
+  ) {}
 
   async register(input: UserCreateInput): Promise<string> {
     console.log('REGISTER', input);
@@ -31,8 +35,8 @@ export default class UserRegistrationService {
       syncedWorkouts: [],
       workoutSessions: [],
       workouts: [],
-    }
+    };
 
-    return this.userRepository.create(newUser)
+    return this.userRepository.create(newUser);
   }
 }

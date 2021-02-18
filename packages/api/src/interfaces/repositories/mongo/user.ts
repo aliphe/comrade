@@ -1,8 +1,11 @@
 import { Collection, Db } from 'mongodb';
 import { MongoCollection, MongoEntity } from '.';
+import { omit } from '../../../application/helpers/object';
 
 import UserEntity from '../../../domain/entities/user';
-import UserRepository, { UserInput } from '../../../domain/entities/user/user.repository';
+import UserRepository, {
+  UserInput,
+} from '../../../domain/entities/user/user.repository';
 
 export default class UserMongoRepository implements UserRepository {
   private readonly collection: MongoCollection<UserEntity>;
@@ -18,7 +21,7 @@ export default class UserMongoRepository implements UserRepository {
       userInfo: user.userInfo,
       workoutSessions: user.workoutSessions,
       workouts: user.workouts,
-    })
+    });
     return query.insertedId.toHexString();
   }
 
@@ -36,9 +39,8 @@ export default class UserMongoRepository implements UserRepository {
 
   static formatUser(mongoUser: MongoEntity<UserEntity>): UserEntity {
     return {
-      ...mongoUser,
-     id: mongoUser._id.toHexString(),
-    }
+      ...omit(mongoUser, '_id'),
+      id: mongoUser._id.toHexString(),
+    };
   }
-  
 }

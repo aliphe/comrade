@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import { container } from 'tsyringe';
+
 import UserRegisterController from './controller';
 
 export default function initUserRegisterRouter(): Router {

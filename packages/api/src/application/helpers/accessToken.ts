@@ -6,7 +6,7 @@ export function generateAccessToken(userInfo: UserInfoEntity): string {
   return jwt.sign(userInfo, config.jwt.secret);
 }
 
-export function verify(token: string): UserInfoEntity | null {
+export function retrieveUserInfoFromAccessToken(token: string): UserInfoEntity | null {
   try {
     const userInfo = jwt.verify(token, config.jwt.secret) as UserInfoEntity;
     return userInfo;
