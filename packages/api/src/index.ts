@@ -1,17 +1,24 @@
 import 'reflect-metadata';
-import dotenv from 'dotenv';
-import { createConnection } from 'typeorm';
-import initApi from './api';
-import initContainer from './container';
 
+import dotenv from 'dotenv';
 dotenv.config();
 
-createConnection()
-  .then(async (connection) => {
-    initContainer(connection);
+import initApi from './interfaces/api';
+import initContainer from './application/container';
+import config from './config';
+import { MongoClient } from 'mongodb';
 
-    const app = initApi();
+async function start() {
+  const client = new MongoClient(config.mongo.url);
 
-    app.listen(3000, () => console.log('Listening on port 3000'));
-  })
-  .catch((error) => console.error(error));
+  await client.connect();
+  const db = client.db(config.mongo.databaseName);
+
+  initContainer(db);
+
+  const app = initApi();
+
+  app.listen(3000, () => console.log('Listening on port 3000'));
+}
+
+start();
