@@ -1,6 +1,6 @@
+import { UserInfoEntity } from '@comrade/entities';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
-import UserInfoEntity from '../../domain/entities/user/userInfo';
 
 export function generateAccessToken(userInfo: UserInfoEntity): string {
   return jwt.sign(userInfo, config.jwt.secret);

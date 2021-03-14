@@ -1,5 +1,5 @@
+import { UserInfoEntity } from '@comrade/entities';
 import { Request } from 'express';
-import UserInfoEntity from '../../../domain/entities/user/userInfo';
 
 export type RequestWithBody<Body> = Request<any, any, Body>;
 

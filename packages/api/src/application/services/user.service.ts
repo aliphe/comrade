@@ -1,10 +1,9 @@
 import { inject, injectable } from 'tsyringe';
-import ExerciceEntity from '../../domain/entities/exercice';
-import UserEntity from '../../domain/entities/user';
-import UserRepository from '../../domain/entities/user/user.repository';
-import UserInfoEntity from '../../domain/entities/user/userInfo';
-import WorkoutEntity from '../../domain/entities/workout';
-import WorkoutSessionEntity from '../../domain/entities/workoutSession';
+
+import { WorkoutEntity, ExerciceEntity, UserEntity, WorkoutSessionEntity } from '@comrade/entities';
+
+import UserRepository from '../../domain/repositories/user';
+import UserInfoEntity from '../../domain/repositories/user/userInfo';
 import { omit } from '../helpers/object';
 
 export interface UserDto {

@@ -1,8 +1,7 @@
+import { UserLoginInput } from '@comrade/api-client';
 import { Response } from 'express';
 import { injectable } from 'tsyringe';
-import UserLoginService, {
-  UserLoginInput,
-} from '../../../../../application/services/login.service';
+import UserLoginService from '../../../../../application/services/login.service';
 import { RequestWithBody } from '../../types';
 
 @injectable()

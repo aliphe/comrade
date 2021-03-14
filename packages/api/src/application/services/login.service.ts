@@ -1,16 +1,8 @@
+import { UserLoginInput, UserLoginOutput } from '@comrade/api-client';
 import { inject, injectable } from 'tsyringe';
-import UserRepository from '../../domain/entities/user/user.repository';
+import UserRepository from '../../domain/repositories/user';
 import { hash } from '../helpers/hash';
 import { generateAccessToken } from '../helpers/accessToken';
-
-export interface UserLoginInput {
-  email: string;
-  password: string;
-}
-
-interface UserLoginOutput {
-  accessToken: string;
-}
 
 @injectable()
 export default class UserLoginService {

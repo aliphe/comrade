@@ -1,13 +1,10 @@
+import { UserRegisterInput } from '@comrade/api-client';
+import { UserEntity } from '@comrade/entities';
 import { inject, injectable } from 'tsyringe';
 import UserRepository, {
   UserInput,
-} from '../../domain/entities/user/user.repository';
+} from '../../domain/repositories/user';
 import { hash } from '../helpers/hash';
-
-export interface UserCreateInput {
-  email: string;
-  password: string;
-}
 
 @injectable()
 export default class UserRegistrationService {
@@ -15,7 +12,7 @@ export default class UserRegistrationService {
     @inject('UserRepository') private readonly userRepository: UserRepository
   ) {}
 
-  async register(input: UserCreateInput): Promise<string> {
+  async register(input: UserRegisterInput): Promise<UserEntity> {
     console.log('REGISTER', input);
     const existingUser = await this.userRepository.findOneByEmail(input.email);
     console.log(existingUser);

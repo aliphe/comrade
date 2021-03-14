@@ -9,3 +9,5 @@ export default interface WorkoutEntity {
 
   workoutSteps: WorkoutStepEntity[];
 }
+
+export { default as WorkoutStepEntity } from './step';

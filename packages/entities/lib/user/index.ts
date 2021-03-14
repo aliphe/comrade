@@ -16,3 +16,5 @@ export default interface UserEntity {
 
   workoutSessions: WorkoutSessionEntity[];
 }
+
+export { default as UserInfoEntity } from './userInfo';

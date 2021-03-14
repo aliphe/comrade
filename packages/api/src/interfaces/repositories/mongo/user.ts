@@ -1,11 +1,11 @@
-import { Collection, Db } from 'mongodb';
+import { UserEntity } from '@comrade/entities';
+import { Db } from 'mongodb';
 import { MongoCollection, MongoEntity } from '.';
 import { omit } from '../../../application/helpers/object';
 
-import UserEntity from '../../../domain/entities/user';
 import UserRepository, {
   UserInput,
-} from '../../../domain/entities/user/user.repository';
+} from '../../../domain/repositories/user';
 
 export default class UserMongoRepository implements UserRepository {
   private readonly collection: MongoCollection<UserEntity>;
@@ -14,7 +14,7 @@ export default class UserMongoRepository implements UserRepository {
     this.collection = db.collection('users');
   }
 
-  async create(user: UserInput): Promise<string> {
+  async create(user: UserInput): Promise<UserEntity> {
     const query = await this.collection.insertOne({
       exercices: user.exercices,
       syncedWorkouts: user.syncedWorkouts,
@@ -22,7 +22,10 @@ export default class UserMongoRepository implements UserRepository {
       workoutSessions: user.workoutSessions,
       workouts: user.workouts,
     });
-    return query.insertedId.toHexString();
+    return {
+      ...user,
+      id: query.insertedId.toHexString(),
+    };
   }
 
   async findOneByEmail(email: string): Promise<UserEntity | null> {

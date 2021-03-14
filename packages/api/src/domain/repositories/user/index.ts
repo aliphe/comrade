@@ -1,8 +1,10 @@
-import UserEntity from ".";
-import ExerciceEntity from "../exercice";
-import WorkoutEntity from "../workout";
-import WorkoutSessionEntity from "../workoutSession";
-import UserInfoEntity from "./userInfo";
+import {
+  ExerciceEntity,
+  UserEntity,
+  UserInfoEntity,
+  WorkoutEntity,
+  WorkoutSessionEntity,
+} from '@comrade/entities';
 
 export interface UserInput {
   id?: string;
@@ -19,7 +21,7 @@ export interface UserInput {
 }
 
 export default interface UserRepository {
-  create(user: UserInput): Promise<string>;
+  create(user: UserInput): Promise<UserEntity>;
 
   findOneByEmail(email: string): Promise<UserEntity | null>;
 }

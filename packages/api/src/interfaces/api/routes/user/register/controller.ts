@@ -1,8 +1,7 @@
+import { UserRegisterInput } from '@comrade/api-client';
 import { Response } from 'express';
 import { injectable } from 'tsyringe';
-import UserRegistrationService, {
-  UserCreateInput,
-} from '../../../../../application/services/registration.service';
+import UserRegistrationService from '../../../../../application/services/registration.service';
 import { RequestWithBody } from '../../types';
 
 @injectable()
@@ -11,7 +10,7 @@ export default class UserRegisterController {
     private readonly userRegistrationService: UserRegistrationService
   ) {}
 
-  async register(req: RequestWithBody<UserCreateInput>, res: Response) {
+  async register(req: RequestWithBody<UserRegisterInput>, res: Response) {
     try {
       const registeredUser = await this.userRegistrationService.register(
         req.body
